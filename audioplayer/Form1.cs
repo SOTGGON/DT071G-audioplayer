@@ -19,7 +19,7 @@ namespace audioplayer
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            //text
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -28,6 +28,11 @@ namespace audioplayer
         }
 
         private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
         {
 
         }
