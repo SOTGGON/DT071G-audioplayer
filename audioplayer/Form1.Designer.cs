@@ -89,9 +89,9 @@
             // 
             this.button4.Location = new System.Drawing.Point(372, 508);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 35);
+            this.button4.Size = new System.Drawing.Size(80, 35);
             this.button4.TabIndex = 3;
-            this.button4.Text = "In order";
+            this.button4.Text = "Play In Order";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
