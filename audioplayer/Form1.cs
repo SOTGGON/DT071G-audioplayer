@@ -17,6 +17,8 @@ namespace audioplayer
         public Form1()
         {
             InitializeComponent();
+
+            axWindowsMediaPlayer1.settings.volume = 20;
         }
 
         string[] files, paths;
@@ -163,11 +165,15 @@ namespace audioplayer
             {
                 axWindowsMediaPlayer1.URL = localSelectPathList[listBox1.SelectedIndex];
                 axWindowsMediaPlayer1.Ctlcontrols.play();
+
+                label5.Text = Path.GetFileNameWithoutExtension(localSelectPathList[listBox1.SelectedIndex]);
             }
             else
             {
                 axWindowsMediaPlayer1.URL = paths[listBox1.SelectedIndex];
                 axWindowsMediaPlayer1.Ctlcontrols.play();
+
+                label5.Text = Path.GetFileNameWithoutExtension(paths[listBox1.SelectedIndex]);
             }
 
             button2.Text = "Pause";
@@ -181,6 +187,39 @@ namespace audioplayer
         private void label6_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            axWindowsMediaPlayer1.settings.volume = trackBar1.Value;
+
+            label6.Text = trackBar1.Value + "%";
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPlaying)
+            {
+                progressBar1.Maximum = (int)axWindowsMediaPlayer1.Ctlcontrols.currentItem.duration;
+                progressBar1.Value = (int)axWindowsMediaPlayer1.Ctlcontrols.currentPosition;
+
+                label1.Text = axWindowsMediaPlayer1.Ctlcontrols.currentPositionString;
+                label2.Text = axWindowsMediaPlayer1.currentMedia.durationString;
+
+                if (progressBar1.Maximum == progressBar1.Value)
+                {
+                    axWindowsMediaPlayer1.Ctlcontrols.stop();
+                }
+                else if (axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsStopped)
+                {
+                    playMode(false);
+                }
+            }
+        }
+
+        private void progressBar1_MouseDown(object sender, MouseEventArgs e)
+        {
+            axWindowsMediaPlayer1.Ctlcontrols.currentPosition = axWindowsMediaPlayer1.currentMedia.duration * e.X / progressBar1.Width;
         }
 
         #region Playmode
