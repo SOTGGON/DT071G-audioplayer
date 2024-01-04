@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -20,6 +21,18 @@ namespace audioplayer
             InitializeComponent();
 
             axWindowsMediaPlayer1.settings.volume = 20;
+
+            List<Video> listVideo = new List<Video>();
+
+            Video v1 = new Video() {Id = "Channel 1", Name = "https://www.keepvid.to/?f=t&url=" };
+            Video v2 = new Video() {Id = "Channel 2", Name = "http://onlinevideoconverter.party/?url=" };
+
+            listVideo.Add(v1);
+            listVideo.Add(v2);
+
+            comboBox1.DataSource = listVideo;
+            comboBox1.DisplayMember = "Id";
+            comboBox1.ValueMember = "Name";
         }
 
         const string localLrcPath = "";
@@ -152,17 +165,32 @@ namespace audioplayer
 
         private void button7_Click(object sender, EventArgs e)
         {
+            OpenFileDialog ofd = new OpenFileDialog();
 
+            ofd.Filter = "Video file|*.mp4; *.mkv; *.avi; *.rmvb";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                Form2 f2 = new Form2(ofd.FileName);
+
+                f2.ShowDialog();
+            }
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
+            if (textBox1.Text.Trim() == "")
+            {
+                MessageBox.Show("Please enter video link", "Notification");
 
-        }
+                return;
+            }
 
-        private void button9_Click(object sender, EventArgs e)
-        {
+            string textUrl = textBox1.Text.Trim();
+            string comUrl = comboBox1.SelectedValue.ToString();
+            string reqUrl = comUrl + textUrl;
 
+            System.Diagnostics.Process.Start(reqUrl);
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
