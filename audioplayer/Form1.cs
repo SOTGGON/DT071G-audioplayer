@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Ookii.Dialogs.WinForms;
@@ -20,6 +21,11 @@ namespace audioplayer
 
             axWindowsMediaPlayer1.settings.volume = 20;
         }
+
+        const string localLrcPath = "";
+        bool lrcStatus = false;
+        List<double> lrcTimeList = new List<double>();
+        List<string> lrcTextList = new List<string>();
 
         string[] files, paths;
         string localSelectPath;
@@ -177,16 +183,8 @@ namespace audioplayer
             }
 
             button2.Text = "Pause";
-        }
 
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
+            lrcStatus = splitLrcTimeAndText();
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -210,10 +208,15 @@ namespace audioplayer
                 {
                     axWindowsMediaPlayer1.Ctlcontrols.stop();
                 }
-                else if (axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsStopped)
+                
+                if (lrcStatus)
                 {
-                    playMode(false);
+                    isShowLrc();
                 }
+            }
+            else if (axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsStopped)
+            {
+                playMode(false);
             }
         }
 
@@ -299,5 +302,107 @@ namespace audioplayer
 
         #endregion
 
+        # region Functions that cannot be implemented temporarily!!!
+
+        #region Split lyrics time and text
+        public bool splitLrcTimeAndText()
+        {
+            try
+            {
+                string lrcPath = localLrcPath + Path.GetFileNameWithoutExtension(listBox1.SelectedItem.ToString()) + ".lrc";
+
+                if (File.Exists(lrcPath))
+                {
+                    string[] arrayString = File.ReadAllLines(lrcPath, Encoding.UTF8);
+
+                    double totalCount = 0;
+
+                    foreach (var item in arrayString)
+                    {
+                        if (Regex.IsMatch(item, @"[0-9][0-9]:[0-9][0-9].[0-9][0-9]"))
+                        {
+                            Match a = Regex.Match(item, @"[0-9][0-9]:[0-9][0-9].[0-9][0-9]");
+                            Match b = Regex.Match(item, @"[^\d.\[\]:].{0,50}");
+
+                            string time = a.ToString();
+                            string minute = time.Split(new char[] { ':' })[0];
+                            string second = time.Split(new char[] { ':', ']' })[1];
+
+                            double parseMiunte = double.Parse(minute) * 60;
+                            double parseSecond = double.Parse(second);
+
+                            totalCount = parseMiunte + parseSecond;
+                            lrcTimeList.Add(totalCount);
+                            lrcTextList.Add(b.ToString());
+                        }
+                    }
+
+                    lrcStatus = true;
+                }
+                else
+                {
+                    lrcStatus = false;
+                    label4.Text = "No Lyrics";
+                }
+            }
+            catch (Exception) 
+            {
+                throw;
+            }
+
+            return lrcStatus;
+        }
+
+        #endregion
+
+        #region If show lyrics 
+        public void isShowLrc()
+        {
+            if(listBox1.SelectedIndex >= 0)
+            {
+                double currentTime = axWindowsMediaPlayer1.Ctlcontrols.currentPosition;
+
+                if (currentTime >= lrcTimeList[lrcTimeList.Count - 1])
+                {
+                    label4.Text = "Lyrics finished...";
+                }
+                else
+                {
+                    for (int i = 0; i < lrcTimeList.Count; i++)
+                    {
+                        if (currentTime > lrcTimeList[i] && currentTime < lrcTimeList[i + 1])
+                        {
+                            label4.Text = lrcTextList[i];
+                        }
+                    }
+                }
+            }
+        }
+
+        #endregion
+        #endregion
+
+        #region Unused elements
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
     }
 }
