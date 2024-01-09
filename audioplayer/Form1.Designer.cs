@@ -118,7 +118,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(12, 27);
+            this.button7.Location = new System.Drawing.Point(17, 23);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(80, 35);
             this.button7.TabIndex = 6;
@@ -128,7 +128,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(12, 68);
+            this.button8.Location = new System.Drawing.Point(16, 85);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(80, 35);
             this.button8.TabIndex = 7;
@@ -139,31 +139,31 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(111, 76);
+            this.comboBox1.Location = new System.Drawing.Point(102, 93);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(72, 21);
+            this.comboBox1.Size = new System.Drawing.Size(98, 21);
             this.comboBox1.TabIndex = 9;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(205, 76);
+            this.textBox1.Location = new System.Drawing.Point(206, 93);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(487, 20);
+            this.textBox1.Size = new System.Drawing.Size(486, 20);
             this.textBox1.TabIndex = 10;
             // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(12, 159);
+            this.listBox1.Location = new System.Drawing.Point(16, 159);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(680, 212);
+            this.listBox1.Size = new System.Drawing.Size(676, 212);
             this.listBox1.TabIndex = 12;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 467);
+            this.label1.Location = new System.Drawing.Point(13, 467);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 13;
@@ -185,6 +185,7 @@
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(527, 13);
             this.progressBar1.TabIndex = 15;
+            this.progressBar1.Click += new System.EventHandler(this.progressBar1_Click);
             this.progressBar1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.progressBar1_MouseDown);
             // 
             // label3
@@ -212,7 +213,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(111, 437);
+            this.label5.Location = new System.Drawing.Point(120, 437);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(47, 20);
             this.label5.TabIndex = 18;
@@ -249,7 +250,7 @@
             // axWindowsMediaPlayer1
             // 
             this.axWindowsMediaPlayer1.Enabled = true;
-            this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(218, 27);
+            this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(138, 23);
             this.axWindowsMediaPlayer1.Name = "axWindowsMediaPlayer1";
             this.axWindowsMediaPlayer1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWindowsMediaPlayer1.OcxState")));
             this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(262, 31);
