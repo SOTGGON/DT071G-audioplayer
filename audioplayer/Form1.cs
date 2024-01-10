@@ -62,6 +62,7 @@ namespace audioplayer
             playMode(true);
         }
 
+        // Spela eller pausa
         private void button2_Click(object sender, EventArgs e)
         {
             if (button2.Text == "Pause")
@@ -92,6 +93,7 @@ namespace audioplayer
             playMode(false);
         }
 
+        // Byter text på knappen
         private void button4_Click(object sender, EventArgs e)
         {
             if (button4.Text == "Play In Order")
@@ -111,6 +113,7 @@ namespace audioplayer
             }
         }
 
+        //Öppna singel eller multiple filer
         private void button5_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -119,6 +122,7 @@ namespace audioplayer
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
+                //Rensa gamla data
                 localSelectPathList.Clear();
                 listBox1.Items.Clear();
 
@@ -138,12 +142,14 @@ namespace audioplayer
             }
         }
 
+        //Öppna hela mappen
         private void button6_Click(object sender, EventArgs e)
         {
             VistaFolderBrowserDialog vfbd = new VistaFolderBrowserDialog();
 
             if (vfbd.ShowDialog() == DialogResult.OK)
             {
+                //Rensa gamla data
                 localSelectPathList.Clear();
                 listBox1.Items.Clear();
 
@@ -163,6 +169,7 @@ namespace audioplayer
             }
         }
 
+        //Öppna lockala filen
         private void button7_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -177,6 +184,7 @@ namespace audioplayer
             }
         }
 
+        //Öppna video länk på en videoanalyswebbplats
         private void button8_Click(object sender, EventArgs e)
         {
             if (textBox1.Text.Trim() == "")
@@ -193,6 +201,7 @@ namespace audioplayer
             System.Diagnostics.Process.Start(reqUrl);
         }
 
+        //Listbox 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (localSelectPathList.Count > 0)
@@ -215,6 +224,7 @@ namespace audioplayer
             lrcStatus = splitLrcTimeAndText();
         }
 
+        // Volym kontroll
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             axWindowsMediaPlayer1.settings.volume = trackBar1.Value;
@@ -222,6 +232,7 @@ namespace audioplayer
             label6.Text = trackBar1.Value + "%";
         }
 
+        // Progress bar och kontroll
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPlaying)
@@ -254,6 +265,7 @@ namespace audioplayer
         }
 
         #region Playmode
+        // Switch mode baserade på text på knappen 4
         public void playMode(bool mode)
         {
             if (button4.Text == "Play In Order")
